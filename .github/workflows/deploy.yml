@@ -29,16 +29,16 @@ jobs:
           node-version: lts/*
 
       - name: Install step
-        run: "npm install npm@latest && npm install"
+        run: "pnpm install"
 
       - name: Build step
-        run: "npm run build"
+        run: "pnpm run build"
 
       - name: Upload to Deno Deploy
         uses: denoland/deployctl@v1
         with:
           project: "pitekkate-boltdiy-90"
-          entrypoint: ""
-          root: ""
+          entrypoint: "pnpm run dev"
+          root: "build"
           
           
