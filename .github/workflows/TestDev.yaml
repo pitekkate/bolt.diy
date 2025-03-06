@@ -29,5 +29,5 @@ jobs:
         pnpm run dev &
         npm install -g localtunnel
         echo "Waiting for server to start..."
-        sleep 10
-        lt --port 5173 --print-requests  # <-- Port diubah ke 5173
+        sleep 30
+        lt --port 5173 --print-requests
