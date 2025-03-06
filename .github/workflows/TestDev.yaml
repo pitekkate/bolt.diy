@@ -1,0 +1,34 @@
+name: DIY Bolt Dev Server
+
+on:
+  push:
+    branches: [ "ghaction" ]
+  workflow_dispatch:
+
+jobs:
+  run-dev:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'pnpm'
+
+    - name: Install pnpm
+      run: npm install -g pnpm
+
+    - name: Install dependencies
+      run: pnpm install
+
+    - name: Start dev server and expose with localtunnel
+      run: |
+        pnpm run dev &
+        npm install -g localtunnel
+        echo "Waiting for server to start..."
+        sleep 10
+        lt --port 5173 --print-requests  # <-- Port diubah ke 5173
