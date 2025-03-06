@@ -24,8 +24,10 @@ jobs:
     - name: Install dependencies
       run: pnpm install
 
+    - name: Install Bore tunnel
+      run: curl --proto '=https' --tlsv1.2 -sSf https://bore.pub/install.sh
+
     - name: Start dev server and expose with localtunnel
       run: |
         pnpm run dev &
-        curl --proto '=https' --tlsv1.2 -sSf https://bore.pub/install.sh | 
         sh bore local 5173 --to bore.pub
