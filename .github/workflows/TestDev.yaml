@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'pnpm'
 
     - name: Install pnpm
       run: npm install -g pnpm
@@ -24,15 +25,21 @@ jobs:
     - name: Install dependencies
       run: pnpm install
 
+    - name: Install bore.pub via cargo
+      uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+      # Install via Rust cargo (lebih reliable)
+      run: cargo install bore-cli
+
     - name: Start dev server and expose with bore.pub
       run: |
         # Jalankan dev server di background
         pnpm run dev &
         
-        # Install bore.pub
-        curl --proto '=https' --tlsv1.2 -sSf https://bore.pub/install.sh | sh
-        
-        # Tunggu server start (adjust sleep jika perlu)
+        # Tunggu server start
         echo "Menunggu server menyala..."
         sleep 10
         
