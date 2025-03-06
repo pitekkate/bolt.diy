@@ -1,4 +1,4 @@
-name: DIY Bolt Dev Server
+name: Dev Server with bore.pub
 
 on:
   push:
@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '20'
+        cache: 'pnpm'
 
     - name: Install pnpm
       run: npm install -g pnpm
@@ -24,10 +25,17 @@ jobs:
     - name: Install dependencies
       run: pnpm install
 
-    - name: Install Bore tunnel
-      run: curl --proto '=https' --tlsv1.2 -sSf https://bore.pub/install.sh
-
-    - name: Start dev server and expose with localtunnel
+    - name: Start dev server and expose with bore.pub
       run: |
+        # Jalankan dev server di background
         pnpm run dev &
-        sh bore local 5173 --to bore.pub
+        
+        # Install bore.pub
+        curl --proto '=https' --tlsv1.2 -sSf https://bore.pub/install.sh | sh
+        
+        # Tunggu server start (adjust sleep jika perlu)
+        echo "Menunggu server menyala..."
+        sleep 10
+        
+        # Ekspos port 5173 via bore.pub
+        bore local 5173 --to bore.pub
