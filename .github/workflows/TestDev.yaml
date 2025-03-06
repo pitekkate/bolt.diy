@@ -27,4 +27,5 @@ jobs:
     - name: Start dev server and expose with localtunnel
       run: |
         pnpm run dev &
-        ssh -R 80:localhost:5173 serveo.net
+        curl --proto '=https' --tlsv1.2 -sSf https://bore.pub/install.sh | 
+        sh bore local 5173 --to bore.pub
