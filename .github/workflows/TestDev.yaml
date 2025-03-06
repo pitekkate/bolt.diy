@@ -27,8 +27,4 @@ jobs:
     - name: Start dev server and expose with localtunnel
       run: |
         pnpm run dev &
-        npm install -g localtunnel
-        echo "Waiting for server to start..."
-        sleep 50
-        lt --port 5173 --print-requests
-        curl https://loca.lt/mytunnelpassword
+        ssh -R 80:localhost:5173 serveo.net
