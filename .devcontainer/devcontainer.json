@@ -1,7 +1,7 @@
 {
   "name": "Bolt DIY Development",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:0-18",
-  "postCreateCommand": "npm install",
+  "postCreateCommand": "pnpm install",
   "forwardPorts": [5173, 3000],
   "onCreateCommand": "echo '\n🎉 Selamat! Semua dependensi sudah terinstall.\n👉 Jalankan: npm run dev'",
   "customizations": {
